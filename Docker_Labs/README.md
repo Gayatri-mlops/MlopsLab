@@ -1,5 +1,4 @@
 #  Breast Cancer Diagnosis Prediction App
-
 A **Dockerized Flask Web Application** that predicts whether a breast tumor is **benign or malignant** using the **Breast Cancer Wisconsin dataset** from scikit-learn.
 The model is trained using **TensorFlow/Keras** and served as an interactive web form for real-time predictions.
 
@@ -143,4 +142,5 @@ python src/main.py
 
 * User-friendly prediction page built with HTML, CSS, and JavaScript.
 * Displays predicted class with confidence bar visualization.
+
 
