@@ -3,8 +3,6 @@
 A **Dockerized Flask Web Application** that predicts whether a breast tumor is **benign or malignant** using the **Breast Cancer Wisconsin dataset** from scikit-learn.
 The model is trained using **TensorFlow/Keras** and served as an interactive web form for real-time predictions.
 
----
-
 ##  Project Overview
 
 This project demonstrates a complete **end-to-end MLOps workflow** — from model training to deployment — within a single Docker container.
@@ -23,8 +21,6 @@ It’s divided into two main stages:
    * Hosts an HTML form for user input (30 numeric features)
    * Returns model predictions (Benign or Malignant) with confidence scores
 
----
-
 ##  Tech Stack
 
 * **Programming Language:** Python 3.9
@@ -36,8 +32,6 @@ It’s divided into two main stages:
   * NumPy / Pandas
 * **Containerization:** Docker
 * **Deployment:** Exposes Flask app on port `4000`
-
----
 
 ##  Project Structure
 
@@ -56,8 +50,6 @@ MLOpsLab/
 └── README.md                 # Project documentation
 ```
 
----
-
 ##  Model Details
 
 * **Dataset:** Breast Cancer Wisconsin (Diagnostic) Dataset (`sklearn.datasets.load_breast_cancer`)
@@ -71,8 +63,6 @@ MLOpsLab/
   * Input: 30 neurons
   * Hidden layers: 64 → 32 (ReLU activation, dropout for regularization)
   * Output: 1 neuron (sigmoid activation for binary classification)
-
----
 
 ##  Installation & Setup
 
@@ -102,9 +92,6 @@ Open your browser and go to:
 ```
 http://localhost:4000/predict
 ```
-
----
-
 ##  API Endpoint (Optional Use)
 
 You can also send POST requests directly to the `/predict` endpoint with JSON data.
@@ -131,15 +118,10 @@ curl -X POST http://localhost:4000/predict \
   }
 }
 ```
-
----
-
 ##  Example Prediction UI
 
 The web form automatically loads all 30 feature fields.
 You can also click **“Load Example”** to autofill demo values for quick testing.
-
----
 
 ##  Requirements
 
@@ -151,8 +133,6 @@ python src/model_training.py
 python src/main.py
 ```
 
----
-
 ##  Screenshots
 
 **Training Stage (Docker build logs):**
@@ -163,3 +143,4 @@ python src/main.py
 
 * User-friendly prediction page built with HTML, CSS, and JavaScript.
 * Displays predicted class with confidence bar visualization.
+
