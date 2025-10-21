@@ -1,0 +1,16 @@
+# Core dependencies
+Flask==3.0.3
+tensorflow==2.17.0
+scikit-learn==1.5.2
+numpy==1.26.4
+pandas==2.2.3
+
+# For data preprocessing and model persistence
+joblib==1.4.2
+
+# Optional but helpful for reproducibility and logging
+matplotlib==3.9.2
+seaborn==0.13.2
+
+# Web serving (used by Flask)
+gunicorn==23.0.0

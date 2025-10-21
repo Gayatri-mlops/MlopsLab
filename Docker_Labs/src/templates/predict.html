@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Breast Cancer Diagnosis</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: #0f172a;
+      color: #0b1020;
+      margin: 0; padding: 24px;
+      display: flex; min-height: 100vh; align-items: center; justify-content: center;
+    }
+    .card {
+      background: #fff; width: 100%; max-width: 980px; border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      padding: 28px;
+    }
+    h1 { margin: 0 0 6px; font-size: 28px; }
+    .subtitle { color: #475569; margin-bottom: 18px; }
+    .grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    }
+    .field { display:flex; flex-direction:column; gap:6px; }
+    label { font-size: 13px; color:#334155; font-weight:600; }
+    input[type="number"] {
+      padding: 10px 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 14px;
+    }
+    input[type="number"]:focus { outline:none; border-color:#6366f1; }
+    .toolbar { display:flex; gap:10px; margin-top: 18px; }
+    button {
+      border: none; padding: 12px 16px; border-radius: 10px; font-weight: 700; cursor: pointer;
+    }
+    #predictBtn { background: linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff; }
+    #clearBtn   { background: #ef4444; color:#fff; }
+    #exampleBtn { background: #0ea5e9; color:#fff; }
+    #result { margin-top: 22px; padding: 18px; border-radius: 12px; display:none; }
+    #result.show { display:block; }
+    .result-success { background:#ecfdf5; border:2px solid #10b981; }
+    .result-error   { background:#fef2f2; border:2px solid #ef4444; }
+    .dx { font-size: 22px; font-weight:800; margin-bottom:6px; }
+    .conf { color:#475569; margin-bottom: 10px; }
+    .prob-row{ display:flex; gap:10px; align-items:center; margin:6px 0; }
+    .bar { flex:1; height:14px; background:#e2e8f0; border-radius:8px; overflow:hidden; }
+    .fill{ height:100%; background: linear-gradient(90deg,#6366f1,#8b5cf6); transition: width 0.4s ease; }
+    .note { font-size:12px; color:#64748b; margin-top: 8px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🩺 Breast Cancer Diagnosis (Binary)</h1>
+    <div class="subtitle">
+      Enter the 30 feature values (same order/definitions as the <em>Breast Cancer Wisconsin</em> dataset).
+    </div>
+
+    <form id="predictionForm" class="form">
+      <div class="grid">
+        {% for feature, key in zip(features, sanitized_keys) %}
+        <div class="field">
+          <label for="{{ key }}">{{ feature }}</label>
+          <input type="number" step="0.0001" id="{{ key }}" name="{{ key }}" required placeholder="e.g., 14.12">
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="toolbar">
+        <button type="submit" id="predictBtn">Predict Diagnosis</button>
+        <button type="button" id="clearBtn">Clear</button>
+        <button type="button" id="exampleBtn">Load Example</button>
+      </div>
+    </form>
+
+    <div id="result"></div>
+    <div class="note">Model outputs probabilities for benign and malignant; threshold = 0.5 on benign.</div>
+  </div>
+
+  <script>
+    const form = document.getElementById('predictionForm');
+    const resultDiv = document.getElementById('result');
+    const clearBtn = document.getElementById('clearBtn');
+    const exampleBtn = document.getElementById('exampleBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      resultDiv.className = '';
+      resultDiv.innerHTML = '<div>🔄 Predicting...</div>';
+      resultDiv.classList.add('show');
+
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch('/predict', { method: 'POST', body: formData });
+        const data = await res.json();
+
+        if (data.error) {
+          resultDiv.className = 'result-error show';
+          resultDiv.innerHTML = `<strong>Error:</strong> ${data.error}`;
+          return;
+        }
+
+        const confPct = (data.confidence * 100).toFixed(2);
+        const pMal = (data.probabilities.malignant * 100).toFixed(1);
+        const pBen = (data.probabilities.benign * 100).toFixed(1);
+
+        resultDiv.className = 'result-success show';
+        resultDiv.innerHTML = `
+          <div class="dx">Diagnosis: ${data.diagnosis.toUpperCase()}</div>
+          <div class="conf">Confidence: ${confPct}%</div>
+
+          <div class="prob-row">
+            <span>Malignant</span>
+            <div class="bar"><div class="fill" style="width:${pMal}%"></div></div>
+            <span>${pMal}%</span>
+          </div>
+          <div class="prob-row">
+            <span>Benign</span>
+            <div class="bar"><div class="fill" style="width:${pBen}%"></div></div>
+            <span>${pBen}%</span>
+          </div>
+        `;
+      } catch (err) {
+        resultDiv.className = 'result-error show';
+        resultDiv.innerHTML = `<strong>Error:</strong> ${err.message}`;
+      }
+    });
+
+    clearBtn.addEventListener('click', () => {
+      form.reset();
+      resultDiv.classList.remove('show');
+      resultDiv.innerHTML = '';
+    });
+
+    // Quick example values (approximate typical means; adjust as needed)
+    exampleBtn.addEventListener('click', () => {
+      const example = [
+        14.1,19.3,92.2,608.0,0.097,0.13,0.10,0.07,0.18,0.06,
+        0.40,1.1,2.7,36.0,0.006,0.03,0.04,0.02,0.02,0.003,
+        15.4,25.0,104.9,720.0,0.13,0.24,0.27,0.14,0.27,0.08
+      ];
+      // Fill by DOM order
+      const inputs = document.querySelectorAll('input[type="number"]');
+      inputs.forEach((inp, i) => { if (example[i] !== undefined) inp.value = example[i]; });
+    });
+  </script>
+</body>
+</html>
