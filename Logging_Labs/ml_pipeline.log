@@ -1,0 +1,7 @@
+2025-11-13 23:34:40,460 - INFO - Training started using NumPy synthetic data
+2025-11-13 23:34:40,461 - INFO - Training data statistics: mean=49.99, std=9.94
+2025-11-13 23:34:40,562 - INFO - Epoch 1/3 : loss=0.5000, acc=0.8000
+2025-11-13 23:34:40,663 - INFO - Epoch 2/3 : loss=0.2500, acc=0.9000
+2025-11-13 23:34:40,764 - INFO - Epoch 3/3 : loss=0.1667, acc=1.0000
+2025-11-13 23:34:40,764 - INFO - Validation accuracy: 0.91
+2025-11-13 23:34:40,764 - INFO - Model saved to ./models/model_v4.pkl

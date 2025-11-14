@@ -1,0 +1,4 @@
+2025-11-13 23:34:40,764 - INFO - Input features: [30.0, 55000.0]
+2025-11-13 23:34:40,764 - INFO - Model output: decision=approve, score=0.850
+2025-11-13 23:34:40,764 - INFO - Input features: [62.0, 24000.0]
+2025-11-13 23:34:40,764 - INFO - Model output: decision=approve, score=0.860

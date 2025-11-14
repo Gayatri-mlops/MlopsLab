@@ -1,0 +1,2 @@
+{"timestamp": "2025-11-14T04:34:40.459670", "level": "INFO", "logger": "json.audit", "message": "Audit event: user=service-account, action=ml_pipeline_started", "module": "logging_demo", "function": "log_audit_event"}
+{"timestamp": "2025-11-14T04:34:40.771782", "level": "INFO", "logger": "json.audit", "message": "Audit event: user=service-account, action=ml_pipeline_completed", "module": "logging_demo", "function": "log_audit_event"}

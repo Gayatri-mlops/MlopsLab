@@ -1,0 +1,11 @@
+2025-11-13 23:34:40,764 - ERROR - ZeroDivisionError occurred
+Traceback (most recent call last):
+  File "C:\MLOPS\Logging_Labs\logging_demo.py", line 204, in demo_exceptions
+    1 / 0
+    ~~^~~
+ZeroDivisionError: division by zero
+2025-11-13 23:34:40,764 - ERROR - Missing file error
+Traceback (most recent call last):
+  File "C:\MLOPS\Logging_Labs\logging_demo.py", line 209, in demo_exceptions
+    open("missing_file.txt")
+FileNotFoundError: [Errno 2] No such file or directory: 'missing_file.txt'

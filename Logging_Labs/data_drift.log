@@ -1,0 +1,4 @@
+2025-11-13 23:34:40,764 - INFO - No drift. batch_mean=50.55, drift_score=0.56
+2025-11-13 23:34:40,764 - WARNING - Drift detected! batch_mean=62.80, drift_score=12.81
+2025-11-13 23:34:40,764 - INFO - No drift. batch_mean=51.16, drift_score=1.17
+2025-11-13 23:34:40,764 - INFO - No drift. batch_mean=53.75, drift_score=3.76
