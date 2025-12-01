@@ -1,0 +1,5 @@
+=== Data Augmentation Results ===
+Original Train Size: 1586
+Augmented Size: 4758
+Combined Size: 6344
+Accuracy with Augmentation: 0.916

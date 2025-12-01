@@ -1,0 +1,4 @@
+=== Data Slicing Results ===
+Train Size: 1586
+Test Size: 250
+Overall F1 (no slicing): 0.925
