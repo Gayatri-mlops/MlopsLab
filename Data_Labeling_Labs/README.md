@@ -1,5 +1,7 @@
 **Data Labeling Labs — Snorkel, Weak Supervision, and Spam Classification**
 
+Lab 6: Data Labeling Labs — Snorkel, Weak Supervision, and Spam Classification
+Student : Gayatri Nair Date : November 2025
 
 This project explores how Snorkel can be used to:
 Build weak supervision pipelines
